@@ -5,10 +5,6 @@ import HelloWorld from "./components/HelloWorld.vue";
 import Lifecycle from "./components/Lifecycle.vue";
 import { ref, watch } from "vue";
 const name = ref("ddddd");
-
-watch(name, (value) => {
-  console.log(value);
-});
 </script>
 
 <template>
