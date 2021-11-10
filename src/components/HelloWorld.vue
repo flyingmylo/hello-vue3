@@ -6,7 +6,7 @@ defineProps({
 });
 
 onMounted(() => {
-  console.log("hellowword");
+  console.log("hellow suede -word");
 });
 const count = ref(0);
 </script>
