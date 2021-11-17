@@ -6,15 +6,22 @@ const props = defineProps({
 });
 
 onMounted(() => {
-  console.log("onMounted", props.name);
+  // console.log("onMounted", props.name);
+  const maxCb = (acc, cur) => {
+    return Math.max(acc.x, cur.x);
+  };
+
+  const val = [{ x: 2 }, { x: 22 }].reduce(maxCb);
+  // console.log(val);
 });
 
-watch(props, (value) => {
-  console.log("watch", value);
-});
-// watch(props.name, (value) => {
-//   console.log("llllllifecyle", value);
+// console.log(props)
+// watch(props, (value) => {
+//   console.log("watch", value);
 // });
+watch(() => props.name, (value, prev) => {
+  console.log("llllllifecyle", value, prev);
+});
 </script>
 
 <template>
