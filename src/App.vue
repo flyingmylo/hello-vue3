@@ -16,8 +16,8 @@ const list = reactive([{ name: "suede" }, { name: "coldplay" }]);
       <h3>绑定了this，获取到的是data里的数据：{{ thatThis.a }}</h3>
     </template>
     <!-- #song 指定slot的名字，绑定一个在todo-list中定义的数据（可以任意命名） -->
-    <template #multiProps="anyName">
-      <h3>v-bind 绑定，可以包含多属性的一个对象：{{ anyName }}</h3>
+    <template #multiProps="{song1,song2}">
+      <h3>v-bind 绑定，可以包含多属性的一个对象：{{ song1 }} --- {{song2}}</h3>
     </template>
 
     <!-- #yyy={yyyProp}  {} 用于解构 -->
