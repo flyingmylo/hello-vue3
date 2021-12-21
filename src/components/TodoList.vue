@@ -26,12 +26,12 @@ export default defineComponent({
     },
     setup() {
         
-    },
+    }
 })
 </script>
 
 <script setup>
-import { reactive,ref} from 'vue';
+import { reactive, ref, defineExpose, onMounted} from 'vue';
 
 const data = reactive([
     {category: 'brit-pop'},
@@ -41,6 +41,8 @@ const song1 = ref('a rush of blood to the head111')
 const song2 = ref('a rush of blood to the head222')
 const singleSong = reactive({name: 'the scientist'})
 
+const getLigetListst =  () => {console.log('getList')}
+// defineExpose({getLigetListst})
 </script>
 
 <style>
