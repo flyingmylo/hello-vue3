@@ -3,6 +3,10 @@ class MyPromise {
 	constructor(fn) {
 		this.PromiseState = MyPromise.PENDING
 		this.PromiseResult = null
+		// 保存成功回调
+		this.onFulfilledCallbacks = []
+		// 保存失败回调
+		this.onRejectedCallbacks = []
 
 		try {
 			// 绑定this，但不执行
@@ -21,6 +25,8 @@ class MyPromise {
 			this.PromiseState = MyPromise.FULFILLED
 			this.PromiseResult = result
 			console.log(result)
+
+			this.onFulfilledCallbacks.forEach(callback => callback(result))
 		}
 
 	}
@@ -29,6 +35,8 @@ class MyPromise {
 		if (this.PromiseState === MyPromise.REJECTED) {
 			this.PromiseState = MyPromise.REJECTED
 			this.PromiseResult = reason
+
+			this.onRejectedCallbacks.forEach(callback => callback(reason))
 		}
 	}
 
@@ -36,6 +44,12 @@ class MyPromise {
 
 		onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : value => value
 		onRejected = typeof onRejected === 'function' ? onRejected : reason => { throw reason }
+
+		// 如果 resovle() 放在了 settimeout 内，此时状态没有改变，依然是 pending
+		if (this.PromiseState === MyPromise.PENDING) {
+			this.onFulfilledCallbacks.push(onFulfilled)
+			this.onRejectedCallbacks.push(onRejected)
+		}
 
 		// 每次只能执行一个函数，保证状态不可变
 		if (this.PromiseState === MyPromise.FULFILLED) {
@@ -59,25 +73,21 @@ const p = new MyPromise((resolve, reject) => {
 
 
 console.log(1);
-let promise = new Promise((resolve, reject) => {
+let promise = new MyPromise((resolve, reject) => {
 	console.log(2);
-	setTimeout(() => {
-		
-		console.log(4)
-	})
+
+	resolve('这次一定')
+	console.log(4)
+
 })
-promise.then((resolve)=>{
-		console.log('fulfilled:', '这次一定');
-		resolve()
-})
-// promise.then(
-// 	result => {
-// 		// resolve('这次一定')
-// 		console.log('fulfilled:', '这次一定');
-// 	},
-// 	reason => {
-// 		console.log('rejected:', reason)
-// 	}
-// )
+
+promise.then(
+	result => {
+		console.log('fulfilled:', result);
+	},
+	reason => {
+		console.log('rejected:', reason)
+	}
+)
 console.log(3);
 

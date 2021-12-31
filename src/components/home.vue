@@ -3,31 +3,28 @@
   <router-link to="/todo">todo</router-link>
 
   <div id="container">
-    <div class="item" v-for="item in arr" :key="item">{{ item }}</div>
+    <div
+      :class="`item-${item}`"
+      v-for="item in arr"
+      :style="{
+        height: `${item}px`,
+        gridRowEnd: `span ${~~(item / 5)}`,
+      }"
+      :key="item"
+    >
+      {{ item }}
+    </div>
     <!-- <div id="footer"></div> -->
   </div>
 </template>
 <script setup>
 import { reactive } from "@vue/reactivity";
-import { onMounted } from "@vue/runtime-core";
-const arr = reactive([1, 2, 3]);
-
-onMounted(() => {
-  const _container = document.getElementById("container");
-  const _footer = document.getElementById("footer");
-
-  const div = document.createElement("div");
-  _container.append(div);
-
-  const _ob = new Intersection(_container, arr);
-
-  _ob.connect(div);
-});
-
+import { onMounted, computed } from "@vue/runtime-core";
+const arr = reactive([180, 120, 130, 120, 125, 135, 140, 125, 138, 140]);
 
 
 class Intersection {
-  constructor(root, data, ) {
+  constructor(root, data) {
     this.dataSource = data;
     this.option = {
       root: root,
@@ -63,21 +60,22 @@ class Intersection {
 <style>
 #container {
   margin: 0 auto;
-  width: 100px;
-  height: 240px;
+  width: 200px;
   border: 1px solid seagreen;
   display: grid;
-  grid-template-columns: repeat(auto-fill, 100px);
-  gap: 3px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 5px;
+  column-gap: 3px;
   overflow-y: auto;
   overflow-x: hidden;
   position: relative;
   padding-right: 20px;
 }
-#container .item {
-  height: 100px;
+#container div {
+  grid-row-start: auto;
   border: 1px solid orange;
   box-sizing: border-box;
+  margin-bottom: 5px;
 }
 #container #footer {
   width: 100%;

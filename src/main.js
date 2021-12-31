@@ -5,7 +5,7 @@ import router from './router/index'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 const band = reactive({ name: 1 });
-// import './promise.js'
+import './promise.js'
 
 // const band = { name: 1 }
 
