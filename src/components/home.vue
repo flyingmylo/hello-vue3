@@ -1,6 +1,7 @@
 <template>
   <router-link to="/bar">bar</router-link><br />
-  <router-link to="/todo">todo</router-link>
+  <router-link to="/todo">todo</router-link><br />
+  <router-link to="/clamp">clamp</router-link>
 
   <div id="container">
     <div
@@ -21,7 +22,6 @@
 import { reactive } from "@vue/reactivity";
 import { onMounted, computed } from "@vue/runtime-core";
 const arr = reactive([180, 120, 130, 120, 125, 135, 140, 125, 138, 140]);
-
 
 class Intersection {
   constructor(root, data) {
