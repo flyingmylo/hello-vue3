@@ -2,7 +2,9 @@
   <router-link to="/bar">bar</router-link><br />
   <router-link to="/todo">todo</router-link><br />
   <router-link to="/clamp">clamp</router-link>
-
+  <div class="outer">
+    <div class="inner"></div>
+  </div>
   <div id="container">
     <div
       :class="`item-${item}`"
@@ -22,6 +24,8 @@
 import { reactive } from "@vue/reactivity";
 import { onMounted, computed } from "@vue/runtime-core";
 const arr = reactive([180, 120, 130, 120, 125, 135, 140, 125, 138, 140]);
+const aaa = reactive({ obj: 123 });
+console.log("enable custom formatters----", aaa);
 
 class Intersection {
   constructor(root, data) {
@@ -83,5 +87,22 @@ class Intersection {
   position: absolute;
   bottom: -50px;
   border: 1px solid cyan;
+}
+.outer {
+  width: 300px;
+  height: 300px;
+  border: 1px solid green;
+  /* display: grid; */
+  position: relative;
+}
+.inner {
+  /* margin: auto; */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  border: 1px solid crimson;
 }
 </style>
